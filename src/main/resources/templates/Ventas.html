@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Realizar Venta</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/ventas.css">
+    <link rel="stylesheet" href="/css/sidebar.css">
+    <link rel="stylesheet" href="/css/Fondo.css">
+</head>
+<body>
+<div th:replace="fragmentos/navbar :: navbar"></div>
+
+<div class="main-content">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2>REALIZAR VENTA</h2>
+            <div>
+                <label class="fw-bold">N° de Venta:</label>
+                <span th:text="${numeroVenta}">0001</span>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="nombreCliente" class="form-label">Nombre del Cliente (opcional):</label>
+            <input type="text" id="nombreCliente" name="nombreCliente" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <input type="text" id="buscador" class="form-control" placeholder="Buscar producto...">
+            <div id="resultado-busqueda" class="mt-2"></div>
+        </div>
+
+        <div class="table-responsive mb-3" id="tablaBusquedaContainer" style="display: none;">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Color</th>
+                        <th>Talla</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaBusquedaProductos">
+                </tbody>
+            </table>
+        </div>
+
+        <form action="#" th:action="@{/registrar}" th:object="${detalles}" method="post">
+            <table class="table" id="tablaProductos">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Precio (S/)</th>
+                        <th>Cantidad</th>
+                        <th>Subtotal</th>
+                        <th>Opción</th>
+                    </tr>
+                </thead>
+                <tbody id="detalleVentaBody">
+                    <!-- Filas dinámicas -->
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3" class="text-end">TOTAL:</td>
+                        <td colspan="2" id="total">S/ 0.00</td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <div class="mb-3">
+                <label for="metodoPago" class="form-label">Método de Pago:</label>
+                <select id="metodoPago" class="form-select" onchange="cambiarMetodoPago()">
+                    <option value="" selected disabled>Seleccione un método...</option>
+                    <option value="efectivo">Efectivo</option>
+                    <option value="tarjeta">Tarjeta</option>
+                    <option value="yape">Yape</option>
+                </select>
+            </div>
+
+            <div class="mb-3" id="pagoEfectivo" style="display: none;">
+                <label for="montoPagado" class="form-label">Monto recibido (S/):</label>
+                <input type="number" class="form-control" id="montoPagado" onchange="calcularVuelto()" min="0">
+                <div class="mt-2">
+                    <strong>Vuelto: </strong><span id="vueltoTexto">S/ 0.00</span>
+                </div>
+            </div>
+
+            <div class="mb-3" id="pagoTarjeta" style="display: none;">
+                <label for="numeroTarjeta" class="form-label">Número de tarjeta:</label>
+                <input type="text" class="form-control" id="numeroTarjeta" placeholder="XXXX-XXXX-XXXX-XXXX"><br>
+                <input type="text" class="form-control" id="ff/vv" placeholder="ff/vv"><br>
+                <input type="text" class="form-control" id="cvv" placeholder="cvv"><br>
+            </div>
+
+            <div class="mb-3" id="pagoYape" style="display: none;">
+                <label class="form-label">Escanea el QR con Yape:</label><br>
+                <img src="/img/qrYape.jpg" alt="QR Yape" style="width: 200px; height: 200px; display: center" >
+            </div>
+
+            <div class="d-flex justify-content-end gap-2">
+                <button type="submit" class="btn btn-primary">Aceptar</button>
+                <button type="button" class="btn btn-success" onclick="imprimirVoucher()">Imprimir Voucher</button>
+                <button type="button" class="btn btn-danger" onclick="location.reload()">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script th:src="@{/js/ventas.js}"></script>
+</body>
+</html>

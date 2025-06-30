@@ -1,0 +1,54 @@
+body {
+    background: url(../img/fondo.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    padding: 2rem;
+    width: 100%;
+    max-width: 400px;
+}
+
+h3 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #1d6e42;
+}
+
+.form-control {
+    border-radius: 8px;
+    font-size: 1rem;
+    padding: 0.8rem;
+}
+
+.btn-success {
+    background-color: #2d7a42;
+    border-color: #2d7a42;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.btn-success:hover {
+    background-color: #256535;
+    border-color: #256535;
+}
+
+.alert {
+    display: none;
+}
+
+.alert-show {
+    display: block;
+}
+
